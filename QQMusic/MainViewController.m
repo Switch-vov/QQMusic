@@ -178,12 +178,17 @@
     
     [_playBarView addSubview:durationLabel];
     
-    durationLabel.frame.size.width;
-    durationLabel.frame.size.height;
-    durationLabel.frame.origin.x;
-    durationLabel.frame.origin.y;
-    
     // 3.进度滑块
+    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, kHeight - 100 - 15, kWidth, 30)];
+    
+    // 设置滑块按钮图片
+    [slider setThumbImage:[UIImage imageNamed:@"playing_slider_thumb"] forState:UIControlStateNormal];
+    // 设置进度条图片
+    // [slider setMinimumTrackImage:[UIImage imageNamed:@"playing_slider_play_left"] forState:UIControlStateNormal];
+    UIColor *minColor = [UIColor colorWithRed: 43 / 255.0 green: 186 / 255.0 blue: 89 / 255.0 alpha: 1];
+    [slider setMinimumTrackTintColor:minColor];
+    [self.view addSubview:slider];
+    
 }
 
 #pragma mark - UIButton Action 点击事件
