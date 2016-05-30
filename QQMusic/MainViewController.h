@@ -18,6 +18,13 @@
 @property(nonatomic, copy) UIButton *pauseButton;
 // 播放工具视图
 @property(nonatomic, copy) UIView *playBarView;
-
+// 导航视图
+@property(nonatomic, copy) UIView *blurView;
+// 滑块
+@property(nonatomic, copy) UISlider *slider;
+// 音乐数据
+@property(nonatomic) NSArray *data;
+// 当前歌曲
+@property(nonatomic) NSInteger index;
 
 @end

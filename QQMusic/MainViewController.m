@@ -34,8 +34,46 @@
     
     // 4.创建进度工具视图
     [self _createProgressBar];
-
+    
+    _index = 0;
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"音乐列表" ofType:@"plist"];
+    _data = [[NSArray alloc] initWithContentsOfFile:filePath];
+    
+    // 取得第一首歌曲的字典数据
+    NSDictionary *firstDic = [_data firstObject];
+    
+    // 显示歌曲的数据
+    [self loadData:firstDic];
 }
+
+- (void)loadData:(NSDictionary *)dic {
+    // 歌手
+    NSString *singer = [dic objectForKey:@"singer"];
+    
+    // 歌名
+    NSString *song = [dic objectForKey:@"song"];
+    
+    // 专辑图
+    NSString *image = dic[@"image"];
+    
+    // mp3文件
+    NSString *url = dic[@"url"];
+    
+    // 根据父视图的tag查找子视图
+    UILabel *songLabel = (UILabel *)[_blurView viewWithTag:100];
+    UILabel *singerLabel = (UILabel *)[_blurView viewWithTag:200];
+    
+    // label显示歌手、歌名
+    songLabel.text = song;
+    singerLabel.text = singer;
+    
+    // 背景图片
+    _bgView.image = [UIImage imageNamed:image];
+    
+    // 播放
+    
+}
+
 
 // 1.创建背景视图
 - (void)_createBackgroundView {
@@ -54,20 +92,20 @@
 // 2.创建顶部导航栏视图
 - (void)_createNavigationBar {
     // 1.IOS8 UIkit提供毛玻璃效果视图
-    UIView *blurView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
+    _blurView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     // 开启此视图毛玻璃效果
-    [blurView enableBlur:YES];
+    [_blurView enableBlur:YES];
     // 设置颜色
-    blurView.blurTintColor = [UIColor colorWithWhite:0.1 alpha:1];
+    _blurView.blurTintColor = [UIColor colorWithWhite:0.1 alpha:1];
     // 设置毛玻璃的样式：浅色、深色
-    blurView.blurStyle = UIViewBlurDarkStyle;
-    [self.view addSubview:blurView];
+    _blurView.blurStyle = UIViewBlurDarkStyle;
+    [self.view addSubview:_blurView];
     
     // 2.创建左边按钮
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     leftButton.frame = CGRectMake(0, 20, 60, 64 - 20);
     [leftButton setImage:[UIImage imageNamed:@"top_back_white"] forState:UIControlStateNormal];
-    [blurView addSubview:leftButton];
+    [_blurView addSubview:leftButton];
     
     // 3.创建右边收藏按钮
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -75,24 +113,26 @@
     [rightButton setImage:[UIImage imageNamed:@"playing_btn_in_myfavor_h"] forState:UIControlStateNormal];
     [rightButton setImage:[UIImage imageNamed:@"playing_btn_in_myfavor"] forState:UIControlStateSelected];
     [rightButton addTarget:self action:@selector(loveAction:) forControlEvents:UIControlEventTouchUpInside];
-    [blurView addSubview:rightButton];
+    [_blurView addSubview:rightButton];
     
     // 4.歌手、歌名
     UILabel *songLabel = [[UILabel alloc] initWithFrame:CGRectMake((kWidth - 180) / 2, 20, 180, 30)];
+    songLabel.tag = 100;
     songLabel.backgroundColor = [UIColor clearColor];
     songLabel.text = @"安静";
     songLabel.textColor = [UIColor  whiteColor];
     songLabel.textAlignment = NSTextAlignmentCenter;
     songLabel.font = [UIFont boldSystemFontOfSize:20];
-    [blurView addSubview:songLabel];
+    [_blurView addSubview:songLabel];
     
     UILabel *singerLabel = [[UILabel alloc] initWithFrame:CGRectMake((kWidth - 180) / 2, 50, 180, 64 - 20 - 30)];
+    singerLabel.tag = 200;
     singerLabel.backgroundColor = [UIColor clearColor];
     singerLabel.text = @"周杰伦";
     singerLabel.textColor = [UIColor  whiteColor];
     singerLabel.textAlignment = NSTextAlignmentCenter;
     singerLabel.font = [UIFont boldSystemFontOfSize:14];
-    [blurView addSubview:singerLabel];
+    [_blurView addSubview:singerLabel];
     
 }
 
@@ -151,6 +191,19 @@
     [_pauseButton setImage:[UIImage imageNamed:@"playing_btn_pause_h"] forState:UIControlStateHighlighted];
     [_pauseButton addTarget:self action:@selector(playSong:) forControlEvents:UIControlEventTouchUpInside];
     [_playBarView addSubview:_pauseButton];
+    
+
+    // 屏幕适配问题
+    // 图片坐标不能写死
+    CGRect frame1 = preButton.frame;
+    frame1.origin.x = _playButton.frame.origin.x - 40 - 40;
+    preButton.frame = frame1;
+    
+    CGRect frame2 = nextButton.frame;
+    frame2.origin.x = _playButton.frame.origin.x + _playButton.frame.size.width + 40;
+    nextButton.frame = frame2;
+    
+    
 }
 
 // 4.创建进度工具视图
@@ -179,17 +232,32 @@
     [_playBarView addSubview:durationLabel];
     
     // 3.进度滑块
-    UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, kHeight - 100 - 15, kWidth, 30)];
+    _slider = [[UISlider alloc] initWithFrame:CGRectMake(0, kHeight - 100 - 15, kWidth, 30)];
     
     // 设置滑块按钮图片
-    [slider setThumbImage:[UIImage imageNamed:@"playing_slider_thumb"] forState:UIControlStateNormal];
+    [_slider setThumbImage:[UIImage imageNamed:@"playing_slider_thumb"] forState:UIControlStateNormal];
     // 设置进度条图片
-    // [slider setMinimumTrackImage:[UIImage imageNamed:@"playing_slider_play_left"] forState:UIControlStateNormal];
+    // [_slider setMinimumTrackImage:[UIImage imageNamed:@"playing_slider_play_left"] forState:UIControlStateNormal];
     UIColor *minColor = [UIColor colorWithRed: 43 / 255.0 green: 186 / 255.0 blue: 89 / 255.0 alpha: 1];
-    [slider setMinimumTrackTintColor:minColor];
-    [self.view addSubview:slider];
+    [_slider setMinimumTrackTintColor:minColor];
+    [self.view addSubview:_slider];
+    
+    
+    
     
 }
+
+// self.view的触摸事件
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [UIView animateWithDuration:0.5 animations:^{
+        _blurView.alpha = !_blurView.alpha;
+        _playBarView.alpha = !_playBarView.alpha;
+        _slider.alpha = !_slider.alpha;
+    }];
+
+    
+}
+
 
 #pragma mark - UIButton Action 点击事件
 // 收藏按钮的点击
@@ -201,10 +269,21 @@
 - (void)passSong:(UIButton *)button {
     if(button.tag == 100) {
         // 上一首
+        _index--;
         
     } else if(button.tag == 101) {
         // 下一首
+        _index++;
     }
+    if (_index < 0) {
+        _index = _data.count - 1;
+    }
+    if (_index >= _data.count) {
+        _index = 0;
+    }
+    
+    NSDictionary *dic = _data[_index];
+    [self loadData:dic];
 }
 
 // 播放，暂停

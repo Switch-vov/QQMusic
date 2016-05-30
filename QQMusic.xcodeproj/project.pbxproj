@@ -16,6 +16,7 @@
 		52A1ECC91CF2E0610032D62C /* 安静.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 52A1ECC51CF2E0610032D62C /* 安静.mp3 */; };
 		52A1ECCA1CF2E0610032D62C /* 遇见.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 52A1ECC61CF2E0610032D62C /* 遇见.mp3 */; };
 		52A1ECCE1CF2E06D0032D62C /* UIView+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A1ECCD1CF2E06D0032D62C /* UIView+Blur.m */; };
+		52AEA23E1CFC2175005E5197 /* 音乐列表.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52AEA23D1CFC2175005E5197 /* 音乐列表.plist */; };
 		52EC2DF41CE9A65F0077C8C2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EC2DF31CE9A65F0077C8C2 /* main.m */; };
 		52EC2DF71CE9A65F0077C8C2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EC2DF61CE9A65F0077C8C2 /* AppDelegate.m */; };
 		52EC2DFF1CE9A65F0077C8C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52EC2DFE1CE9A65F0077C8C2 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		52A1ECC61CF2E0610032D62C /* 遇见.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "遇见.mp3"; sourceTree = "<group>"; };
 		52A1ECCC1CF2E06D0032D62C /* UIView+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Blur.h"; sourceTree = "<group>"; };
 		52A1ECCD1CF2E06D0032D62C /* UIView+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Blur.m"; sourceTree = "<group>"; };
+		52AEA23D1CFC2175005E5197 /* 音乐列表.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "音乐列表.plist"; sourceTree = "<group>"; };
 		52EC2DEF1CE9A65F0077C8C2 /* QQMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QQMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52EC2DF31CE9A65F0077C8C2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		52EC2DF51CE9A65F0077C8C2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				52EC2DF61CE9A65F0077C8C2 /* AppDelegate.m */,
 				52EC2E251CE9AD4A0077C8C2 /* MainViewController.h */,
 				52EC2E261CE9AD4A0077C8C2 /* MainViewController.m */,
+				52AEA23D1CFC2175005E5197 /* 音乐列表.plist */,
 				52A1ECCB1CF2E06D0032D62C /* 开源类 */,
 				52A1ECC21CF2E0610032D62C /* QQ音乐 */,
 				52A1ECB91CF2E0560032D62C /* QQ图片 */,
@@ -296,6 +299,7 @@
 				52A1ECC91CF2E0610032D62C /* 安静.mp3 in Resources */,
 				52A1ECC71CF2E0610032D62C /* 你不知道的事.mp3 in Resources */,
 				52EC2DFF1CE9A65F0077C8C2 /* Assets.xcassets in Resources */,
+				52AEA23E1CFC2175005E5197 /* 音乐列表.plist in Resources */,
 				52A1ECC11CF2E0560032D62C /* yanzi.jpg in Resources */,
 				52A1ECBE1CF2E0560032D62C /* chenyixun.jpg in Resources */,
 				52A1ECC01CF2E0560032D62C /* wanglihong.jpg in Resources */,
